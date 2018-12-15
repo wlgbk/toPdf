@@ -10,10 +10,12 @@ pip install lxml	# 注意，使用xpath，只需要安装lxml
 ```
 
 **分析**
+
 首先需要在首页提取出各目录的链接，只提取一级目录的URL就够了，子目录的内容在同一个页面：
 ![](https://i.imgur.com/SeizBs7.png)
 
 **获取目录的所有URL请求列表**
+
 按F12打开开发者工具，发现所有的一级目录链接都在`<li class="toctree-l1">`节点下，使用BeautifulSoup可以很方便把所有URL提取出来，这里URL需要手动补全：
 ![](https://i.imgur.com/VAATGRe.png)
 
@@ -43,6 +45,7 @@ def get_url_list(url):
     return urls
 ```
 **爬取所需内容制作HTML**
+
 接下来是重点。先打开一个目录的链接看看，有三部分组成，1是左边栏，有一些说明介绍，我们不关心，2是广告，忽略，3是主要内容体，也是我们要提取的内容，节点存在于`class="body"`的 `class="section"`中。
 ![](https://i.imgur.com/uEXOb5C.png)
 
@@ -99,6 +102,7 @@ def use_beautifulsoup_get_content(response):
     return content
 ```
 **生成HTML文件**
+
 取回内容之后，把之前的html头加上，就可以生成文件了。
 ```python
 html = html_template.format(content=content)
@@ -113,6 +117,7 @@ return name
 ```
 
 **把HTML转成PDF**
+
 导入pdfkit包，传入HTML文件名(可以是单个也可以是文件名列表)和需要生成的pdf文件名
 ```python
 def save_to_pdf(htmls, file_name):
@@ -178,6 +183,7 @@ html_template = """
 跟原网页一模一样，简直完美~
 
 **后记**
+
 授人以鱼不如授人以渔。
 相信做过这个爬虫之后，以后想要网上任何的官方文档、教程，都能爬下来制作PDF电子书。想要廖大神的Python教程？爬！想要Git教程？爬！想要刘江的Django教程？爬！
 
