@@ -6,6 +6,7 @@ __author__ = 'turbobin'
 from bs4 import BeautifulSoup
 import requests
 from lxml import etree
+from textwrap import dedent
 import pdfkit
 import os
 
@@ -31,23 +32,23 @@ def get_url_list(url):
 
 
 def create_htmls(url, name):
-    html_template = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://pythonguidecn.readthedocs.io/zh/latest/_static/alabaster.css" rel="stylesheet" type="text/css">
-    <link href="https://pythonguidecn.readthedocs.io/zh/latest/_static/pygments.css" rel="stylesheet" type="text/css">
-    <link href="https://media.readthedocs.org/css/badge_only.css" rel="stylesheet" type="text/css">
-    <link href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css">
-</head>
-<body style>
-    <div class="body" role="main">
-    {content}
-    </div>
-</body>
-</html>
-    """
+    html_template = dedent("""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <link href="https://pythonguidecn.readthedocs.io/zh/latest/_static/alabaster.css" rel="stylesheet" type="text/css">
+            <link href="https://pythonguidecn.readthedocs.io/zh/latest/_static/pygments.css" rel="stylesheet" type="text/css">
+            <link href="https://media.readthedocs.org/css/badge_only.css" rel="stylesheet" type="text/css">
+            <link href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" rel="stylesheet" type="text/css">
+        </head>
+        <body style>
+            <div class="body" role="main">
+            {content}
+            </div>
+        </body>
+        </html>
+        """)
     print('正在请求:', url)
     response = parse_url(url)
     # 方法一：使用xpath
